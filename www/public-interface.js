@@ -25,6 +25,7 @@ module.exports = function init(exec, cookieHandler, urlUtil, helpers, globalConf
     head: head,
     options: options,
     uploadFile: uploadFile,
+    uploadFileMethod: uploadFileMethod,
     downloadFile: downloadFile,
     ErrorCode: errorCodes,
     ponyfills: ponyfills
@@ -152,7 +153,7 @@ module.exports = function init(exec, cookieHandler, urlUtil, helpers, globalConf
         });
       case 'upload':
         var fileOptions = helpers.checkUploadFileOptions(options.filePath, options.name);
-        var method = options.upload_method || 'post'
+        var method = options.upload_method || 'POST'
         return exec(onSuccess, onFail, 'CordovaHttpPlugin', 'uploadFiles', [url, headers, fileOptions.filePaths, fileOptions.names, options.timeout, options.followRedirect, options.responseType, method]);
       case 'download':
         var filePath = helpers.checkDownloadFilePath(options.filePath);

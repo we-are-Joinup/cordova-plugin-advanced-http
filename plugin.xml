@@ -35,6 +35,7 @@
     <header-file src="src/ios/BinaryResponseSerializer.h"/>
     <header-file src="src/ios/TextResponseSerializer.h"/>
     <header-file src="src/ios/TextRequestSerializer.h"/>
+    <header-file src="src/ios/AFNetworking/AFCompatibilityMacros.h"/>
     <header-file src="src/ios/AFNetworking/AFHTTPSessionManager.h"/>
     <header-file src="src/ios/AFNetworking/AFNetworking.h"/>
     <header-file src="src/ios/AFNetworking/AFNetworkReachabilityManager.h"/>

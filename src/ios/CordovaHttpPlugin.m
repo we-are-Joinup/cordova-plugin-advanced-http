@@ -216,7 +216,8 @@
             [weakSelf.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
             [[SDNetworkActivityIndicator sharedActivityIndicator] stopActivity];
         };
-        [manager dataTaskWithHTTPMethod:method URLString:url parameters:nil headers:headers uploadProgress:nil downloadProgress:nil success:onSuccess failure:onFailure];
+        NSURLSessionDataTask *task = [manager dataTaskWithHTTPMethod:method URLString:url parameters:nil headers:headers uploadProgress:nil downloadProgress:nil success:onSuccess failure:onFailure];
+        [task resume];
     }
     @catch (NSException *exception) {
         [[SDNetworkActivityIndicator sharedActivityIndicator] stopActivity];
@@ -296,10 +297,12 @@
             [[SDNetworkActivityIndicator sharedActivityIndicator] stopActivity];
         };
 
+        NSURLSessionDataTask *task = nil;
         if ([serializerName isEqualToString:@"multipart"]) {
-            [manager POST:url parameters:nil headers:headers constructingBodyWithBlock:constructBody progress:nil success:onSuccess failure:onFailure];
+            task = [manager POST:url parameters:nil headers:headers constructingBodyWithBlock:constructBody progress:nil success:onSuccess failure:onFailure];
         } else {
-            [manager dataTaskWithHTTPMethod:method URLString:url parameters:data headers:headers uploadProgress:nil downloadProgress:nil success:onSuccess failure:onFailure];
+            task = [manager dataTaskWithHTTPMethod:method URLString:url parameters:data headers:headers uploadProgress:nil downloadProgress:nil success:onSuccess failure:onFailure];
+            [task resume];
         }
     }
     @catch (NSException *exception) {
